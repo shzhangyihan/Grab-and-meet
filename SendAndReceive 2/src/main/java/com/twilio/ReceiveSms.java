@@ -40,7 +40,7 @@ public class ReceiveSms {
 			realContent = realContent.substring(5);
 			String[] splitedContent = realContent.split("\\+");
 
-			if(splitedContent[0].equals("go"))
+			if(splitedContent[0].equals("go") || splitedContent[0].equals("Go"))
 			{
 				dest = splitedContent[1];
 				ltime = splitedContent[2];
@@ -64,7 +64,7 @@ public class ReceiveSms {
 				}
 				toRe = "Received";
 			}
-			else if(splitedContent[0].equals("list"))
+			else if(splitedContent[0].equals("list") || splitedContent[0].equals("List"))
 			{
 				dest = splitedContent[1];
 				items = splitedContent[2];
@@ -107,12 +107,12 @@ public class ReceiveSms {
 						String pN = su.get(index).number;
 						ret = checkAviliable(su, pN, itms);
 						if (ret != null) {
-							toRe = "Congratulation! " + ret + " is willing to help you! Call for the help!";
+							toRe = "Congratulation! " + ret + " can help you! Call for the help!";
 							demandList.remove(d);
 						} else {
 							LinkedList<Supply> supListInDem = filter(supplyList, dst, itms);
 							d.supListInDem = supListInDem;
-							toRe = "Sorry the last option is no longer available.\n" + convertToString(supListInDem);
+							toRe = "Sorry this option is no longer available.\n" + convertToString(supListInDem);
 						}
 					}
 					else
@@ -176,6 +176,10 @@ public class ReceiveSms {
 
 	public static String convertToString(LinkedList<Supply> supply)
 	{
+		if(supply.size() == 0) {
+			String s1 = "Sorry, there is currently no one avaliable to your destination. Please try later.";
+			return s1;
+		}
 		String s1 =  "There are "+supply.size()+" people going to "+
 				supply.get(0).dest+".\n"+
 				"Reply to choose one of them to help you! "+'\n';
