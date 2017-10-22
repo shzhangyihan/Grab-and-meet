@@ -146,7 +146,7 @@ public class ReceiveSms {
 		while(iter.hasNext()){
 			Supply temp = iter.next();
 			if(temp.etime < date.getTime()){
-				iter.remove();
+				//iter.remove();
 				continue;
 			}
 
@@ -176,6 +176,8 @@ public class ReceiveSms {
 
 	public static String convertToString(LinkedList<Supply> supply)
 	{
+		Date date = new Date();
+		long curr = date.getTime();
 		if(supply.size() == 0) {
 			String s1 = "Sorry, there is currently no one avaliable to your destination. Please try later.";
 			return s1;
@@ -186,11 +188,11 @@ public class ReceiveSms {
 		for (int i=0;i<supply.size();i++){
 			Supply sp = supply.get(i);
 			if (sp.items==1){
-				s1 += "("+((char)(97+i))+")" + " Going in "+ (sp.etime-sp.stime)/60000 +
+				s1 += "("+((char)(97+i))+")" + " Going in "+ (sp.etime-curr)/60000 +
 						" mins, able to take "+sp.items+" item.\n";
 			}
 			else{
-				s1 += "("+((char)(97+i))+")" + "Going in "+(sp.etime-sp.stime)/60000+
+				s1 += "("+((char)(97+i))+")" + "Going in "+(sp.etime-curr)/60000+
 						"mins, able to take "+sp.items+" items.\n";
 			}
 
@@ -208,7 +210,7 @@ public class ReceiveSms {
 			System.out.println("11");
 			Supply su = it.next();
 			if(curr > su.etime) {
-				it.remove();
+				//it.remove();
 				continue;
 			}
 
